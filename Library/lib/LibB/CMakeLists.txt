@@ -1,0 +1,31 @@
+set(LOCAL_TARGET_NAME ${PROJECT_NAME}LibB)
+
+set(SOURCE_FILES 
+	src/MathLibrary.cpp
+)
+
+set(API_HEADERS 
+	Include/MathLibrary.h
+)
+
+add_library( ${LOCAL_TARGET_NAME} ${SOURCE_FILES} ${API_HEADERS})
+target_include_directories(${LOCAL_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Include ${CMAKE_CURRENT_BINARY_DIR})
+
+include(GenerateExportHeader) 
+
+GENERATE_EXPORT_HEADER( ${LOCAL_TARGET_NAME}
+             BASE_NAME ${LOCAL_TARGET_NAME}
+             EXPORT_MACRO_NAME ${LOCAL_TARGET_NAME}_MATHLIBRARY_API
+             EXPORT_FILE_NAME ${LOCAL_TARGET_NAME}_Export.h
+             STATIC_DEFINE ${LOCAL_TARGET_NAME}_BUILT_AS_STATIC
+)
+
+target_precompile_headers(${LOCAL_TARGET_NAME}
+  PRIVATE
+    <utility>
+	<limits.h>
+)
+
+install (TARGETS ${LOCAL_TARGET_NAME} DESTINATION lib)
+install (FILES ${API_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/${LOCAL_TARGET_NAME}_Export.h DESTINATION Include)
+
