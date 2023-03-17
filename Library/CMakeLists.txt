@@ -41,8 +41,8 @@ add_subdirectory(lib)
 #########################################################################################
 
 install(EXPORT ${PROJECT_NAME}Targets
-        FILE ${PROJECT_NAME}.cmake
-        NAMESPACE ${PROJECT_NAME}::
+        FILE ${PROJECT_NAME}-config.cmake
+        NAMESPACE LibEX::
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
